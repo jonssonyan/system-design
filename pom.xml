@@ -7,6 +7,11 @@
     <groupId>com.jonssonyan</groupId>
     <artifactId>software-architecture-design</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+    <modules>
+        <module>rate-limiter</module>
+    </modules>
+
     <name>software-architecture-design</name>
     <description>Demo project for Software Architecture Design</description>
     <packaging>pom</packaging>
