@@ -6,28 +6,31 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.connection.RedisServerCommands;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
-import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-@Service
 @Slf4j
 public class RedisRateLimiter implements RateLimiter {
-    private StringRedisTemplate redisTemplate;
+    private final StringRedisTemplate redisTemplate;
 
-    private DefaultRedisScript<Long> redisScript;
-
-    private int maxPermits = 1;
-
-    private int permitsPerMin = 1;
-
-    private List<String> keys;
+    private final DefaultRedisScript<Long> redisScript;
+    /**
+     * 最大可存储令牌数量
+     */
+    private int maxPermits = 10;
 
     /**
-     * @param redisTemplate
-     * @param redisScript
+     * 每分钟产生的令牌数
+     */
+    private int permitsPerMin = 60;
+
+    private final List<String> keys;
+
+    /**
+     * @param redisTemplate redis
+     * @param redisScript   脚本
      * @param key           流控ID
      * @param maxPermits    最大可存储令牌数量 通常设为目标限流时间窗口内最大流量数量，如果限流目标为10个/s 则 不能大于10，如限流目标为1个/m 则不能大于1
      * @param permitsPerMin 每分钟产生的令牌数 ，可支持几秒一个令牌的情况（不超过一分钟）

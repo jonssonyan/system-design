@@ -12,11 +12,13 @@ public class LimiterServiceImpl implements LimiterService {
     private final RateLimiter rateLimiter;
 
     public LimiterServiceImpl(RedisRateLimiterManager rateLimiterManager) {
+        //
         this.rateLimiter = rateLimiterManager.createIfAbsent("test.rate.limiter", 3, 10);
     }
 
     @Override
     public String test() {
+        // 开启限流
         rateLimiter.acquire();
         return "success";
     }

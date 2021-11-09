@@ -20,11 +20,12 @@ public class RedisRateLimiterManager implements RateLimiterManager {
     @Autowired
     private StringRedisTemplate redisTemplate;
 
-    private ConcurrentMap<String, RedisRateLimiter> redisRateLimiters = MapUtil.newConcurrentHashMap();
+    private final ConcurrentMap<String, RedisRateLimiter> redisRateLimiters = MapUtil.newConcurrentHashMap();
     private DefaultRedisScript<Long> redisScript;
 
     @PostConstruct
     void init() {
+        // 配置lua脚本
         redisScript = new DefaultRedisScript<>();
         redisScript.setLocation(new ClassPathResource("/ratelimit/token.lua"));
         redisScript.setResultType(Long.class);
