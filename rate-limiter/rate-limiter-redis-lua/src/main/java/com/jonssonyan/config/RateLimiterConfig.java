@@ -17,13 +17,13 @@ public class RateLimiterConfig {
     @Bean(name = "rateLimitRedisScript")
     public DefaultRedisScript<Long> rateLimitRedisScript() {
         DefaultRedisScript<Long> defaultRedisScript = new DefaultRedisScript<>();
-        defaultRedisScript.setLocation(new ClassPathResource("/ratelimit/token.lua"));
+        defaultRedisScript.setLocation(new ClassPathResource("/scripts/rate_limiter.lua"));
         defaultRedisScript.setResultType(Long.class);
         return defaultRedisScript;
     }
 
     @Bean(name = "rateLimiter")
     public RateLimiter rateLimiter(RedisRateLimiterManager rateLimiterManager) {
-        return rateLimiterManager.createIfAbsent("rate.limiter.test", 10, 60);
+        return rateLimiterManager.createIfAbsent(10, 60, "rate.limiter.test");
     }
 }

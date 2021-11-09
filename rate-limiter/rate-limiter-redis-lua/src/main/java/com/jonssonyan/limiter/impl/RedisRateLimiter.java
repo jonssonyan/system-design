@@ -31,22 +31,22 @@ public class RedisRateLimiter implements RateLimiter {
     /**
      * @param redisTemplate redis
      * @param redisScript   脚本
-     * @param key           流控ID
+     * @param keys          流控ID
      * @param maxPermits    最大可存储令牌数量 通常设为目标限流时间窗口内最大流量数量，如果限流目标为10个/s 则 不能大于10，如限流目标为1个/m 则不能大于1
      * @param permitsPerMin 每分钟产生的令牌数 ，可支持几秒一个令牌的情况（不超过一分钟）
      */
-    RedisRateLimiter(StringRedisTemplate redisTemplate, DefaultRedisScript<Long> redisScript, String key, int maxPermits, int permitsPerMin) {
+    public RedisRateLimiter(StringRedisTemplate redisTemplate, DefaultRedisScript<Long> redisScript, int maxPermits, int permitsPerMin, List<String> keys) {
         Assert.isTrue(maxPermits > 0, "[Assertion failed] - this expression must be true");
         Assert.isTrue(permitsPerMin > 0, "[Assertion failed] - this expression must be true");
         Assert.isTrue(redisTemplate != null, "[Assertion failed] - this expression must be true");
-        Assert.isTrue(key != null && key.trim().length() > 0, "[Assertion failed] - this expression must be true");
+        Assert.isTrue(CollUtil.isEmpty(keys), "[Assertion failed] - this expression must be true");
         Assert.isTrue(redisScript != null, "[Assertion failed] - this expression must be true");
 
-        this.redisScript = redisScript;
         this.redisTemplate = redisTemplate;
+        this.redisScript = redisScript;
         this.maxPermits = maxPermits;
         this.permitsPerMin = permitsPerMin;
-        this.keys = CollUtil.newArrayList(key, "" + maxPermits, "" + permitsPerMin);
+        this.keys = keys;
     }
 
     @Override
@@ -80,13 +80,11 @@ public class RedisRateLimiter implements RateLimiter {
      * @return 需要等待的时间（单位微秒）
      */
     protected Long tryAcquire(int requiredPermits, long timeoutMills) {
-
         Assert.isTrue(requiredPermits > 0, "[Assertion failed] - this expression must be true");
         Assert.isTrue(timeoutMills > 0, "[Assertion failed] - this expression must be true");
-
         Assert.isTrue(maxPermits >= requiredPermits, "[Assertion failed] - this expression must be true");
-        Assert.isTrue(timeoutMills > (requiredPermits / permitsPerMin) * TimeUnit.MINUTES.toMillis(1), "[Assertion " +
-                "failed] - this expression must be true");
+        Assert.isTrue(timeoutMills > (requiredPermits / permitsPerMin) * TimeUnit.MINUTES.toMillis(1),
+                "[Assertion failed] - this expression must be true");
 
         return redisTemplate.execute(redisScript, keys, now(), "" + requiredPermits, "" + timeoutMills);
     }
@@ -101,6 +99,7 @@ public class RedisRateLimiter implements RateLimiter {
     protected Long acquire(int requiredPermits) {
         Assert.isTrue(requiredPermits > 0, "[Assertion failed] - this expression must be true");
         Assert.isTrue(maxPermits >= requiredPermits, "[Assertion failed] - this expression must be true");
+
         try {
             return redisTemplate.execute(redisScript, keys, now(), "" + requiredPermits);
         } catch (Exception e) {

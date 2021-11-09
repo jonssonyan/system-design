@@ -1,5 +1,6 @@
 package com.jonssonyan.limiter.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.map.MapUtil;
 import com.jonssonyan.limiter.RateLimiter;
 import com.jonssonyan.limiter.RateLimiterManager;
@@ -31,13 +32,13 @@ public class RedisRateLimiterManager implements RateLimiterManager {
      * @return
      */
     @Override
-    public RateLimiter createIfAbsent(String key, int maxPermits, int permitsPerMin) {
-        RedisRateLimiter result = redisRateLimiters.putIfAbsent(key, new RedisRateLimiter(redisTemplate, rateLimitRedisScript, key, maxPermits, permitsPerMin));
-        if (result == null) {
-            return redisRateLimiters.get(key);
-        }
-        Assert.isTrue(result.getMaxPermits() == maxPermits, "已存在不一致的流控器:" + key);
-        Assert.isTrue(result.getPermitsPerMin() == permitsPerMin, "已存在不一致的流控器:" + key);
-        return result;
+    public RateLimiter createIfAbsent(int maxPermits, int permitsPerMin, String key) {
+        RedisRateLimiter rateLimiter = redisRateLimiters.putIfAbsent(key,
+                new RedisRateLimiter(redisTemplate, rateLimitRedisScript,
+                        maxPermits, permitsPerMin, CollUtil.newArrayList(key)));
+        if (rateLimiter == null) return redisRateLimiters.get(key);
+        Assert.isTrue(rateLimiter.getMaxPermits() == maxPermits, "已存在不一致的流控器:" + key);
+        Assert.isTrue(rateLimiter.getPermitsPerMin() == permitsPerMin, "已存在不一致的流控器:" + key);
+        return rateLimiter;
     }
 }
