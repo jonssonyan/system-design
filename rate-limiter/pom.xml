@@ -11,6 +11,7 @@
 
     <modules>
         <module>rate-limiter-redis-lua</module>
+        <module>rate-limiter-guava</module>
     </modules>
 
     <artifactId>rate-limiter</artifactId>
