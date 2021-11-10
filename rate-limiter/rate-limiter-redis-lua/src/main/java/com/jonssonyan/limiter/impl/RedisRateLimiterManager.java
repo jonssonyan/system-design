@@ -18,13 +18,11 @@ import java.util.concurrent.ConcurrentMap;
 @Service
 public class RedisRateLimiterManager implements RateLimiterManager {
 
-    @Autowired
-    private StringRedisTemplate redisTemplate;
-
     private DefaultRedisScript<Long> rateLimitRedisScript;
-
     private final ConcurrentMap<String, RedisRateLimiter> redisRateLimiters = MapUtil.newConcurrentHashMap();
 
+    @Autowired
+    private StringRedisTemplate redisTemplate;
 
     @PostConstruct
     void init() {

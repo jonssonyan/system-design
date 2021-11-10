@@ -14,7 +14,6 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class RedisRateLimiter implements RateLimiter {
     private final StringRedisTemplate redisTemplate;
-
     private final DefaultRedisScript<Long> redisScript;
     /**
      * 最大可存储令牌数量
@@ -25,7 +24,6 @@ public class RedisRateLimiter implements RateLimiter {
      * 每分钟产生的令牌数
      */
     private int permitsPerMin = 60;
-
     private final List<String> keys;
 
     /**
@@ -39,7 +37,7 @@ public class RedisRateLimiter implements RateLimiter {
         Assert.isTrue(maxPermits > 0, "[Assertion failed] - this expression must be true");
         Assert.isTrue(permitsPerMin > 0, "[Assertion failed] - this expression must be true");
         Assert.isTrue(redisTemplate != null, "[Assertion failed] - this expression must be true");
-        Assert.isTrue(CollUtil.isEmpty(keys), "[Assertion failed] - this expression must be true");
+        Assert.isTrue(CollUtil.isNotEmpty(keys), "[Assertion failed] - this expression must be true");
         Assert.isTrue(redisScript != null, "[Assertion failed] - this expression must be true");
 
         this.redisTemplate = redisTemplate;
