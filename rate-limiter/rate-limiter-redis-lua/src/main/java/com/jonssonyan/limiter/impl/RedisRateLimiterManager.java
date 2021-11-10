@@ -33,7 +33,7 @@ public class RedisRateLimiterManager implements RateLimiterManager {
     }
 
     @Override
-    public RateLimiter createIfAbsent(int maxPermits, int permitsPerMin, String key) {
+    public RateLimiter createIfAbsent(Integer maxPermits, Integer permitsPerMin, String key) {
         RedisRateLimiter rateLimiter = redisRateLimiters.putIfAbsent(key,
                 new RedisRateLimiter(stringRedisTemplate, rateLimitRedisScript,
                         maxPermits, permitsPerMin, key));

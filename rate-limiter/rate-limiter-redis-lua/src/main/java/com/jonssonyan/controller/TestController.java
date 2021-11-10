@@ -15,8 +15,7 @@ public class TestController {
     private LimiterService limiterService;
 
     @GetMapping("/rateLimiterTest")
-    public Result test() {
-        String str = limiterService.rateLimiterTest();
-        return Result.success(str);
+    public Result rateLimiterTest() {
+        return Result.success(limiterService.rateLimiterTest());
     }
 }

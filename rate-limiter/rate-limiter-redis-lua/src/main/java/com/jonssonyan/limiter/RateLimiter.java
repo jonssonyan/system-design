@@ -10,7 +10,7 @@ public interface RateLimiter {
      * @param timeoutMills 超时时间 （单位微秒）超时时间不能超过 请求每个令牌产生需要的时间 比如 如果流控为n秒m个 ，则超时时间不能小于等于 m*n 秒
      * @return 是否获取成功
      */
-    boolean tryAcquire(long timeoutMills);
+    boolean tryAcquire(Long timeoutMills);
 
     /**
      * 获取一个流控令牌，会阻塞当前线程直至获取成功

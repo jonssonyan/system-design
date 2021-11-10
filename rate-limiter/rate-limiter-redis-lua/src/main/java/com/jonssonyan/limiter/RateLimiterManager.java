@@ -10,5 +10,5 @@ public interface RateLimiterManager {
      * @param key           键值
      * @return
      */
-    RateLimiter createIfAbsent(int maxPermits, int permitsPerMin, String key);
+    RateLimiter createIfAbsent(Integer maxPermits, Integer permitsPerMin, String key);
 }

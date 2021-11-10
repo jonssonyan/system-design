@@ -21,11 +21,11 @@ public class RedisRateLimiter implements RateLimiter {
     /**
      * 最大可存储令牌数量
      */
-    private final int maxPermits;
+    private final Integer maxPermits;
     /**
      * 每分钟产生的令牌数
      */
-    private final int permitsPerMin;
+    private final Integer permitsPerMin;
     private final List<String> keys;
 
     /**
@@ -35,7 +35,7 @@ public class RedisRateLimiter implements RateLimiter {
      * @param maxPermits          最大可存储令牌数量 通常设为目标限流时间窗口内最大流量数量，如果限流目标为10个/s 则 不能大于10，如限流目标为1个/m 则不能大于1
      * @param permitsPerMin       每分钟产生的令牌数 ，可支持几秒一个令牌的情况（不超过一分钟）
      */
-    public RedisRateLimiter(StringRedisTemplate stringRedisTemplate, DefaultRedisScript<Long> redisScript, int maxPermits, int permitsPerMin, String keys) {
+    public RedisRateLimiter(StringRedisTemplate stringRedisTemplate, DefaultRedisScript<Long> redisScript, Integer maxPermits, Integer permitsPerMin, String keys) {
         Assert.isTrue(maxPermits > 0, "[Assertion failed] - this expression must be true");
         Assert.isTrue(permitsPerMin > 0, "[Assertion failed] - this expression must be true");
         Assert.isTrue(stringRedisTemplate != null, "[Assertion failed] - this expression must be true");
@@ -50,8 +50,8 @@ public class RedisRateLimiter implements RateLimiter {
     }
 
     @Override
-    public boolean tryAcquire(long timeoutMills) {
-        long time = tryAcquire(1, timeoutMills);
+    public boolean tryAcquire(Long timeoutMills) {
+        Long time = tryAcquire(1, timeoutMills);
         if (time > timeoutMills) return false;
         sleep(time);
         return true;
@@ -62,7 +62,7 @@ public class RedisRateLimiter implements RateLimiter {
         sleep(acquire(1));
     }
 
-    private void sleep(long time) {
+    private void sleep(Long time) {
         if (time <= 0) return;
         try {
             Thread.sleep(time);
@@ -79,7 +79,7 @@ public class RedisRateLimiter implements RateLimiter {
      * @param timeoutMills    超时时间 （单位微秒）超时时间不能超过 请求令牌数量*每个令牌产生需要的时间 比如 如果流控为n秒m个 ，如果一次请求K个 则超时时间不能小于等于 (k/m)*n 秒
      * @return 需要等待的时间（单位微秒）
      */
-    protected Long tryAcquire(int requiredPermits, long timeoutMills) {
+    protected Long tryAcquire(Integer requiredPermits, Long timeoutMills) {
         Assert.isTrue(requiredPermits > 0, "[Assertion failed] - this expression must be true");
         Assert.isTrue(timeoutMills > 0, "[Assertion failed] - this expression must be true");
         Assert.isTrue(maxPermits >= requiredPermits, "[Assertion failed] - this expression must be true");
@@ -96,7 +96,7 @@ public class RedisRateLimiter implements RateLimiter {
      * @param requiredPermits 请求的令牌数量 不能超过最大可存储令牌数量
      * @return 需要等待的时间（单位微秒）
      */
-    protected Long acquire(int requiredPermits) {
+    protected Long acquire(Integer requiredPermits) {
         Assert.isTrue(requiredPermits > 0, "[Assertion failed] - this expression must be true");
         Assert.isTrue(maxPermits >= requiredPermits, "[Assertion failed] - this expression must be true");
 

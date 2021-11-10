@@ -1,10 +1,15 @@
 package com.jonssonyan.service.impl;
 
+import cn.hutool.core.date.DateUtil;
 import com.jonssonyan.limiter.RateLimiter;
 import com.jonssonyan.limiter.RateLimiterManager;
 import com.jonssonyan.service.LimiterService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 
 @Service
 @Slf4j
@@ -20,6 +25,6 @@ public class LimiterServiceImpl implements LimiterService {
     public String rateLimiterTest() {
         // 开启限流
         rateLimiter.acquire();
-        return "success";
+        return DateUtil.format(new Date(),"yyyy-MM-dd HH:mm:ss");
     }
 }
