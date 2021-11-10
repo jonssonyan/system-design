@@ -22,14 +22,14 @@ public class RedisRateLimiterManager implements RateLimiterManager {
     private final ConcurrentMap<String, RedisRateLimiter> redisRateLimiters = MapUtil.newConcurrentHashMap();
 
     @Autowired
-    private StringRedisTemplate redisTemplate;
+    private StringRedisTemplate stringRedisTemplate;
 
     @PostConstruct
     void init() {
         rateLimitRedisScript = new DefaultRedisScript<>();
         rateLimitRedisScript.setLocation(new ClassPathResource("/scripts/rate_limiter.lua"));
         rateLimitRedisScript.setResultType(Long.class);
-        Objects.requireNonNull(redisTemplate.getConnectionFactory()).getConnection()
+        Objects.requireNonNull(stringRedisTemplate.getConnectionFactory()).getConnection()
                 .scriptLoad(rateLimitRedisScript.getScriptAsString().getBytes());
     }
 
@@ -45,7 +45,7 @@ public class RedisRateLimiterManager implements RateLimiterManager {
     @Override
     public RateLimiter createIfAbsent(int maxPermits, int permitsPerMin, String key) {
         RedisRateLimiter rateLimiter = redisRateLimiters.putIfAbsent(key,
-                new RedisRateLimiter(redisTemplate, rateLimitRedisScript,
+                new RedisRateLimiter(stringRedisTemplate, rateLimitRedisScript,
                         maxPermits, permitsPerMin, CollUtil.newArrayList(key)));
         if (rateLimiter == null) return redisRateLimiters.get(key);
         Assert.isTrue(rateLimiter.getMaxPermits() == maxPermits, "已存在不一致的流控器:" + key);

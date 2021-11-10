@@ -12,7 +12,7 @@ public class LimiterServiceImpl implements LimiterService {
     private final RateLimiter rateLimiter;
 
     public LimiterServiceImpl(RateLimiterManager rateLimiterManager) {
-        this.rateLimiter = rateLimiterManager.createIfAbsent(10, 60, "rate.limiter.test");
+        this.rateLimiter = rateLimiterManager.createIfAbsent(10, 60, "test");
     }
 
     @Override

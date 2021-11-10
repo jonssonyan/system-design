@@ -2,6 +2,7 @@ package com.jonssonyan.limiter.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.jonssonyan.limiter.RateLimiter;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.connection.RedisServerCommands;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -12,35 +13,35 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
+@Getter
 public class RedisRateLimiter implements RateLimiter {
-    private final StringRedisTemplate redisTemplate;
+    private final StringRedisTemplate stringRedisTemplate;
     private final DefaultRedisScript<Long> redisScript;
     /**
      * 最大可存储令牌数量
      */
-    private int maxPermits = 10;
-
+    private final int maxPermits;
     /**
      * 每分钟产生的令牌数
      */
-    private int permitsPerMin = 60;
+    private final int permitsPerMin;
     private final List<String> keys;
 
     /**
-     * @param redisTemplate redis
-     * @param redisScript   脚本
-     * @param keys          流控ID
-     * @param maxPermits    最大可存储令牌数量 通常设为目标限流时间窗口内最大流量数量，如果限流目标为10个/s 则 不能大于10，如限流目标为1个/m 则不能大于1
-     * @param permitsPerMin 每分钟产生的令牌数 ，可支持几秒一个令牌的情况（不超过一分钟）
+     * @param stringRedisTemplate
+     * @param redisScript
+     * @param keys                流控ID
+     * @param maxPermits          最大可存储令牌数量 通常设为目标限流时间窗口内最大流量数量，如果限流目标为10个/s 则 不能大于10，如限流目标为1个/m 则不能大于1
+     * @param permitsPerMin       每分钟产生的令牌数 ，可支持几秒一个令牌的情况（不超过一分钟）
      */
-    public RedisRateLimiter(StringRedisTemplate redisTemplate, DefaultRedisScript<Long> redisScript, int maxPermits, int permitsPerMin, List<String> keys) {
+    public RedisRateLimiter(StringRedisTemplate stringRedisTemplate, DefaultRedisScript<Long> redisScript, int maxPermits, int permitsPerMin, List<String> keys) {
         Assert.isTrue(maxPermits > 0, "[Assertion failed] - this expression must be true");
         Assert.isTrue(permitsPerMin > 0, "[Assertion failed] - this expression must be true");
-        Assert.isTrue(redisTemplate != null, "[Assertion failed] - this expression must be true");
+        Assert.isTrue(stringRedisTemplate != null, "[Assertion failed] - this expression must be true");
         Assert.isTrue(CollUtil.isNotEmpty(keys), "[Assertion failed] - this expression must be true");
         Assert.isTrue(redisScript != null, "[Assertion failed] - this expression must be true");
 
-        this.redisTemplate = redisTemplate;
+        this.stringRedisTemplate = stringRedisTemplate;
         this.redisScript = redisScript;
         this.maxPermits = maxPermits;
         this.permitsPerMin = permitsPerMin;
@@ -84,7 +85,7 @@ public class RedisRateLimiter implements RateLimiter {
         Assert.isTrue(timeoutMills > (requiredPermits / permitsPerMin) * TimeUnit.MINUTES.toMillis(1),
                 "[Assertion failed] - this expression must be true");
 
-        return redisTemplate.execute(redisScript, keys, now(), "" + requiredPermits, "" + timeoutMills);
+        return stringRedisTemplate.execute(redisScript, keys, String.valueOf(now()), String.valueOf(requiredPermits), String.valueOf(timeoutMills));
     }
 
 
@@ -99,7 +100,7 @@ public class RedisRateLimiter implements RateLimiter {
         Assert.isTrue(maxPermits >= requiredPermits, "[Assertion failed] - this expression must be true");
 
         try {
-            return redisTemplate.execute(redisScript, keys, now(), "" + requiredPermits);
+            return stringRedisTemplate.execute(redisScript, keys, String.valueOf(now()), String.valueOf(requiredPermits));
         } catch (Exception e) {
             log.error("获取令牌失败:" + e.getMessage(), e);
             return 10L;
@@ -107,14 +108,6 @@ public class RedisRateLimiter implements RateLimiter {
     }
 
     private Long now() {
-        return redisTemplate.execute(RedisServerCommands::time);
-    }
-
-    public int getPermitsPerMin() {
-        return permitsPerMin;
-    }
-
-    public int getMaxPermits() {
-        return maxPermits;
+        return stringRedisTemplate.execute(RedisServerCommands::time);
     }
 }
