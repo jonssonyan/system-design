@@ -24,7 +24,7 @@ public class RedisRateLimiterManager implements RateLimiterManager {
 
     @PostConstruct
     void init() {
-        // 加载lua限流脚本
+        // 加载lua脚本
         rateLimitRedisScript = new DefaultRedisScript<>();
         rateLimitRedisScript.setLocation(new ClassPathResource("/scripts/rate_limiter.lua"));
         rateLimitRedisScript.setResultType(Long.class);
