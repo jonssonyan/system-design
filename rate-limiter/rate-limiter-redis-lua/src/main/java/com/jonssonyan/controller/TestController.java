@@ -14,9 +14,9 @@ public class TestController {
     @Autowired
     private LimiterService limiterService;
 
-    @GetMapping("/test")
+    @GetMapping("/rateLimiterTest")
     public Result test() {
-        String str = limiterService.test();
+        String str = limiterService.rateLimiterTest();
         return Result.success(str);
     }
 }
