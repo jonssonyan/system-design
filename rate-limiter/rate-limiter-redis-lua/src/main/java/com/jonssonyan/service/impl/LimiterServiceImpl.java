@@ -7,8 +7,6 @@ import com.jonssonyan.service.LimiterService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 
 @Service
@@ -25,6 +23,6 @@ public class LimiterServiceImpl implements LimiterService {
     public String rateLimiterTest() {
         // 开启限流
         rateLimiter.acquire();
-        return DateUtil.format(new Date(),"yyyy-MM-dd HH:mm:ss");
+        return DateUtil.format(new Date(), "yyyy-MM-dd HH:mm:ss");
     }
 }
