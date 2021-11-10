@@ -1,6 +1,7 @@
 package com.jonssonyan.limiter.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
 import com.jonssonyan.limiter.RateLimiter;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -34,18 +35,18 @@ public class RedisRateLimiter implements RateLimiter {
      * @param maxPermits          最大可存储令牌数量 通常设为目标限流时间窗口内最大流量数量，如果限流目标为10个/s 则 不能大于10，如限流目标为1个/m 则不能大于1
      * @param permitsPerMin       每分钟产生的令牌数 ，可支持几秒一个令牌的情况（不超过一分钟）
      */
-    public RedisRateLimiter(StringRedisTemplate stringRedisTemplate, DefaultRedisScript<Long> redisScript, int maxPermits, int permitsPerMin, List<String> keys) {
+    public RedisRateLimiter(StringRedisTemplate stringRedisTemplate, DefaultRedisScript<Long> redisScript, int maxPermits, int permitsPerMin, String keys) {
         Assert.isTrue(maxPermits > 0, "[Assertion failed] - this expression must be true");
         Assert.isTrue(permitsPerMin > 0, "[Assertion failed] - this expression must be true");
         Assert.isTrue(stringRedisTemplate != null, "[Assertion failed] - this expression must be true");
-        Assert.isTrue(CollUtil.isNotEmpty(keys), "[Assertion failed] - this expression must be true");
+        Assert.isTrue(StrUtil.isNotBlank(keys), "[Assertion failed] - this expression must be true");
         Assert.isTrue(redisScript != null, "[Assertion failed] - this expression must be true");
 
         this.stringRedisTemplate = stringRedisTemplate;
         this.redisScript = redisScript;
         this.maxPermits = maxPermits;
         this.permitsPerMin = permitsPerMin;
-        this.keys = keys;
+        this.keys = CollUtil.newArrayList(keys, String.valueOf(maxPermits), String.valueOf(permitsPerMin));
     }
 
     @Override

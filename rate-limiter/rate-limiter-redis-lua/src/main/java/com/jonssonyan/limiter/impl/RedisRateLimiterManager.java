@@ -46,7 +46,7 @@ public class RedisRateLimiterManager implements RateLimiterManager {
     public RateLimiter createIfAbsent(int maxPermits, int permitsPerMin, String key) {
         RedisRateLimiter rateLimiter = redisRateLimiters.putIfAbsent(key,
                 new RedisRateLimiter(stringRedisTemplate, rateLimitRedisScript,
-                        maxPermits, permitsPerMin, CollUtil.newArrayList(key)));
+                        maxPermits, permitsPerMin, key));
         if (rateLimiter == null) return redisRateLimiters.get(key);
         Assert.isTrue(rateLimiter.getMaxPermits() == maxPermits, "已存在不一致的流控器:" + key);
         Assert.isTrue(rateLimiter.getPermitsPerMin() == permitsPerMin, "已存在不一致的流控器:" + key);
