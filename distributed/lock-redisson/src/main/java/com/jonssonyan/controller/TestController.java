@@ -41,14 +41,12 @@ public class TestController {
             // 尝试加锁，最多等待100秒，上锁以后10秒自动解锁
             boolean res = lock.tryLock(100, 10, TimeUnit.SECONDS);
             if (res) {
-                try {
-                    log.info("reentrantLock test");
-                } finally {
-                    lock.unlock();
-                }
+                log.info("reentrantLock test");
             }
         } catch (InterruptedException e) {
             log.error(e.getMessage(), e);
+        } finally {
+            lock.unlock();
         }
         return Result.success();
     }
@@ -69,17 +67,12 @@ public class TestController {
             // 尝试加锁，最多等待100秒，上锁以后10秒自动解锁
             boolean res = fairLock.tryLock(100, 10, TimeUnit.SECONDS);
             if (res) {
-                try {
-                    log.info("fairLock test");
-                    return Result.success();
-                } catch (Exception e) {
-                    log.error(e.getMessage(), e);
-                } finally {
-                    fairLock.unlock();
-                }
+                log.info("fairLock test");
             }
         } catch (InterruptedException e) {
             log.error(e.getMessage(), e);
+        } finally {
+            fairLock.unlock();
         }
         return Result.success();
     }
@@ -98,17 +91,13 @@ public class TestController {
             // 尝试加锁，最多等待100秒，上锁以后10秒自动解锁
             boolean res = rLock.tryLock(100, 10, TimeUnit.SECONDS);
             if (res) {
-                try {
-                    String uuid = stringRedisTemplate.opsForValue().get("flag");
-                    return Result.success(uuid);
-                } catch (Exception e) {
-                    log.error(e.getMessage(), e);
-                } finally {
-                    rLock.unlock();
-                }
+                String uuid = stringRedisTemplate.opsForValue().get("flag");
+                log.info(uuid);
             }
         } catch (InterruptedException e) {
             log.error(e.getMessage(), e);
+        } finally {
+            rLock.unlock();
         }
         return Result.success();
     }
@@ -126,17 +115,12 @@ public class TestController {
             // 尝试加锁，最多等待100秒，上锁以后10秒自动解锁
             boolean res = rLock.tryLock(100, 10, TimeUnit.SECONDS);
             if (res) {
-                try {
-                    stringRedisTemplate.opsForValue().set("flag", "writeLock test");
-                    return Result.success();
-                } catch (Exception e) {
-                    log.error(e.getMessage(), e);
-                } finally {
-                    rLock.unlock();
-                }
+                stringRedisTemplate.opsForValue().set("flag", "writeLock test");
             }
         } catch (InterruptedException e) {
             log.error(e.getMessage(), e);
+        } finally {
+            rLock.unlock();
         }
         return Result.success();
     }
