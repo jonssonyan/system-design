@@ -12,12 +12,12 @@
     </parent>
 
     <modules>
-        <module>lock-redisson</module>
+
     </modules>
 
-    <artifactId>distributed</artifactId>
-    <name>distributed</name>
-    <description>Demo project for Distributed</description>
+    <artifactId>database</artifactId>
+    <name>database</name>
+    <description>Demo project for Database</description>
     <packaging>pom</packaging>
 
     <properties>
