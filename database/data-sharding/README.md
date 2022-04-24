@@ -52,3 +52,4 @@ create table t_order_1
 
 1. https://shardingsphere.apache.org/document/current/cn/overview/
 2. https://shardingsphere.apache.org/document/legacy/4.x/document/cn/overview/
+3. [自定义分库/分片策略](https://www.cnblogs.com/chengxy-nds/p/13919981.html)
