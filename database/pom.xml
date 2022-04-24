@@ -12,7 +12,7 @@
     </parent>
 
     <modules>
-
+        <module>data-sharding</module>
     </modules>
 
     <artifactId>database</artifactId>
@@ -28,4 +28,15 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.4.2</version>
+        </dependency>
+    </dependencies>
 </project>
