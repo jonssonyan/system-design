@@ -10,10 +10,10 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>data-sharding</artifactId>
+    <artifactId>sharding-sub</artifactId>
     <version>1.0.0</version>
-    <name>data-sharding</name>
-    <description>Demo project for Database Data Sharding</description>
+    <name>sharding-sub</name>
+    <description>Demo project for Database Sharding Sub</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
