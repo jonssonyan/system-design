@@ -12,6 +12,7 @@
     </parent>
 
     <modules>
+        <module>sharding-read-write</module>
         <module>sharding-sub</module>
     </modules>
 
