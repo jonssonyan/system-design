@@ -12,7 +12,7 @@
     </parent>
 
     <modules>
-        <module>data-sharding</module>
+        <module>sharding-sub</module>
     </modules>
 
     <artifactId>database</artifactId>
