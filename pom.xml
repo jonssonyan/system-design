@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.jonssonyan</groupId>
-    <artifactId>software-architecture-design</artifactId>
+    <artifactId>system-design</artifactId>
     <version>1.0.0</version>
 
     <modules>
@@ -14,8 +14,8 @@
         <module>database</module>
     </modules>
 
-    <name>software-architecture-design</name>
-    <description>Demo project for Software Architecture Design</description>
+    <name>system-design</name>
+    <description>Demo project for System Design</description>
     <packaging>pom</packaging>
 
     <properties>
