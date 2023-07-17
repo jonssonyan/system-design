@@ -12,6 +12,7 @@
         <module>rate-limiter</module>
         <module>distributed</module>
         <module>database</module>
+        <module>observability</module>
     </modules>
 
     <name>system-design</name>
