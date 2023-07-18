@@ -16,6 +16,10 @@
 1. [Guava实现令牌桶算法](./rate-limiter/rate-limiter-guava)
 2. [Redis+Lua实现令牌桶算法](./rate-limiter/rate-limiter-redis-lua)
 
+## 可观测性
+
+1. [SkyWalking](./observability/skywalking)
+
 ## 分布式锁
 
 1. [Redisson实现分布式锁](./distributed/lock-redisson)
