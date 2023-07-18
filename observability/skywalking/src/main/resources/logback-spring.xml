@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>　　
+    <!--日志输出路径-->
+    <property name="LOG_HOME" value="/data/logging/logs"/>
+
+    <!--控制台日志输出配置-->
+    <appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
+        <!--对输出日志进行格式化-->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--此处设置字符集-->
+            <charset>UTF-8</charset>
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} (%file:%line\) [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- skywalking grpc 日志收集 8.4.0版本开始支持 -->
+    <appender name="grpcLog" class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.log.GRPCLogClientAppender">
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%tid] [%thread] %-5level %logger{36} -%msg%n</Pattern>
+            </layout>
+        </encoder>
+    </appender>
+
+    <!-- 测试环境+开发环境. 多个使用逗号隔开. -->
+    <springProfile name="test,dev">
+        <logger name="com.jonssonyan" level="DEBUG" additivity="false">
+            <appender-ref ref="consoleLog"/>
+            <appender-ref ref="grpcLog"/>
+        </logger>
+    </springProfile>
+
+    <!-- 生产环境. -->
+    <springProfile name="prod">
+        <logger name="com.jonssonyan" level="INFO" additivity="false">
+            <appender-ref ref="grpcLog"/>
+        </logger>
+    </springProfile>
+</configuration>
