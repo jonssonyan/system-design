@@ -4,7 +4,8 @@
 
 ## 版本
 
-SkyWalking: 9.0.4
+SkyWalking APM: 9.5.0
+SkyWalking Java Agent: 8.16.0
 JDK: 1.8
 Spring Boot: 2.3.2.RELEASE
 MySQL: 5.7.29
@@ -25,7 +26,14 @@ storage:
 
 Windows环境启动`bin/startup.bat`
 
+下载MySQL驱动，复制到`/skywalking/oap-libs/`目录下
+
+- Maven：https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.28/mysql-connector-java-8.0.28.jar
+- 阿里云：https://mirrors.aliyun.com/mysql/Connector-J/mysql-connector-java-8.0.28.tar.gz
+
 ## JVM参数
+
+SkyWalking Download: https://skywalking.apache.org/downloads/
 
 ```
 -javaagent:D:\skywalking-agent\skywalking-agent.jar
