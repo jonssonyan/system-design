@@ -4,7 +4,7 @@
 
 持续更新中...
 
-# Author
+# 作者
 
 [jonssonyan](https://jonssonyan.com)
 
