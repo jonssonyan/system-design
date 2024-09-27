@@ -17,6 +17,7 @@
 
     <artifactId>distributed</artifactId>
     <name>distributed</name>
+    <version>0.0.1</version>
     <description>Demo project for Distributed</description>
     <packaging>pom</packaging>
 

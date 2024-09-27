@@ -18,6 +18,7 @@
 
     <artifactId>database</artifactId>
     <name>database</name>
+    <version>0.0.1</version>
     <description>Demo project for Database</description>
     <packaging>pom</packaging>
 
