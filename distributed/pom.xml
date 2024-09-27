@@ -7,7 +7,7 @@
     <parent>
         <artifactId>system-design</artifactId>
         <groupId>com.jonssonyan</groupId>
-        <version>1.0.0</version>
+        <version>0.0.1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 

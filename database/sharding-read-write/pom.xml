@@ -6,12 +6,12 @@
     <parent>
         <artifactId>database</artifactId>
         <groupId>com.jonssonyan</groupId>
-        <version>1.0.0</version>
+        <version>0.0.1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>sharding-read-write</artifactId>
-    <version>1.0.0</version>
+    <version>0.0.1</version>
     <name>sharding-read-write</name>
     <description>Demo project for Database Sharding Read Write</description>
 

@@ -5,12 +5,12 @@
     <parent>
         <groupId>com.jonssonyan</groupId>
         <artifactId>distributed</artifactId>
-        <version>1.0.0</version>
+        <version>0.0.1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>lock-redisson</artifactId>
-    <version>1.0.0</version>
+    <version>0.0.1</version>
     <name>lock-redisson</name>
     <description>Demo project for Lock Redisson</description>
 

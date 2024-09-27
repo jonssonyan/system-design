@@ -6,12 +6,12 @@
     <parent>
         <groupId>com.jonssonyan</groupId>
         <artifactId>rate-limiter</artifactId>
-        <version>1.0.0</version>
+        <version>0.0.1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>rate-limiter-redis-lua</artifactId>
-    <version>1.0.0</version>
+    <version>0.0.1</version>
     <name>rate-limiter-redis-lua</name>
     <description>Demo project for Rate Limiter Redis Lua</description>
 
