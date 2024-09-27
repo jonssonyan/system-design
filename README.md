@@ -11,6 +11,10 @@
 1. [读写分离](./database/sharding-read-write)
 2. [分库分表](./database/sharding-sub)
 
+### Redis
+
+1. [循环队列](./redis/circular-queue)
+
 ## 限流算法
 
 1. [Guava实现令牌桶算法](./rate-limiter/rate-limiter-guava)
