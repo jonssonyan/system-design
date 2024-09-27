@@ -1,4 +1,4 @@
-package com.jonssonyan.entity;
+package com.jonssonyan.model.entity;
 
 import lombok.Builder;
 import lombok.Data;
