@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
  * List 模拟有限集合
  */
 @RestController
-@RequestMapping("limitSet")
-public class LimitSetController {
+@RequestMapping("list/limitSet")
+public class ListLimitSetController {
 
-    private final static String redisKey = RedisKey.builder().prefix("redis").suffix("limitSet").build().of();
+    private final static String redisKey = RedisKey.builder().prefix("list").suffix("limitSet").build().of();
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;

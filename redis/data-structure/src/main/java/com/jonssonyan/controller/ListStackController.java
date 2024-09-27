@@ -9,16 +9,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Random;
-
 /**
  * List 模拟栈
  */
 @RestController
-@RequestMapping("stack")
-public class StackController {
+@RequestMapping("list/stack")
+public class ListStackController {
 
-    private final static String redisKey = RedisKey.builder().prefix("redis").suffix("stack").build().of();
+    private final static String redisKey = RedisKey.builder().prefix("list").suffix("stack").build().of();
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
