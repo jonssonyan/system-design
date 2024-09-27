@@ -6,12 +6,12 @@
     <parent>
         <artifactId>database</artifactId>
         <groupId>com.jonssonyan</groupId>
-        <version>0.0.1</version>
+        <version>0.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>sharding-sub</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.1-SNAPSHOT</version>
     <name>sharding-sub</name>
     <description>Demo project for Database Sharding Sub</description>
 

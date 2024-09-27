@@ -7,7 +7,7 @@
     <parent>
         <artifactId>system-design</artifactId>
         <groupId>com.jonssonyan</groupId>
-        <version>0.0.1</version>
+        <version>0.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -17,7 +17,7 @@
 
     <artifactId>distributed</artifactId>
     <name>distributed</name>
-    <version>0.0.1</version>
+    <version>0.0.1-SNAPSHOT</version>
     <description>Demo project for Distributed</description>
     <packaging>pom</packaging>
 

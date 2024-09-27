@@ -6,12 +6,12 @@
     <parent>
         <groupId>com.jonssonyan</groupId>
         <artifactId>redis</artifactId>
-        <version>0.0.1</version>
+        <version>0.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>circular-queue</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.1-SNAPSHOT</version>
     <name>circular-queue</name>
     <description>Demo project for Circular Queue</description>
 

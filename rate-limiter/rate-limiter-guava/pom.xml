@@ -6,12 +6,12 @@
     <parent>
         <groupId>com.jonssonyan</groupId>
         <artifactId>rate-limiter</artifactId>
-        <version>0.0.1</version>
+        <version>0.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>rate-limiter-guava</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.1-SNAPSHOT</version>
     <name>rate-limiter-guava</name>
     <description>Demo project for Rate Limiter Guava</description>
 
