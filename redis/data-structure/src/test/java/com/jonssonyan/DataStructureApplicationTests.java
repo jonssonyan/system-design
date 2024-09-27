@@ -1,10 +1,10 @@
-package com.jonssonyan.circularqueue;
+package com.jonssonyan;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CircularQueueApplicationTests {
+class DataStructureApplicationTests {
 
 	@Test
 	void contextLoads() {

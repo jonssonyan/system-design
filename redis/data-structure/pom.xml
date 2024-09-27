@@ -10,10 +10,10 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>circular-queue</artifactId>
+    <artifactId>data-structure</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>circular-queue</name>
-    <description>Demo project for Circular Queue</description>
+    <name>data-structure</name>
+    <description>Demo project for Data Structure</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

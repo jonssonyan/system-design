@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CircularQueueApplication {
+public class DataStructureApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CircularQueueApplication.class, args);
+		SpringApplication.run(DataStructureApplication.class, args);
 	}
 
 }

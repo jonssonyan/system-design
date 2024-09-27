@@ -13,7 +13,7 @@
 
 ### Redis
 
-1. [循环队列](./redis/circular-queue)
+1. [数据结构应用](./redis/data-structure)
 
 ## 限流算法
 

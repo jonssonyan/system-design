@@ -12,7 +12,7 @@
     </parent>
 
     <modules>
-        <module>circular-queue</module>
+        <module>data-structure</module>
     </modules>
 
     <artifactId>redis</artifactId>
